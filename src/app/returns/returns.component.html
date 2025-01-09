@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="container mt-4">
+    <h2>Lista de Returns</h2>
+
+    <!-- Botón para mostrar el formulario -->
+    <button class="btn btn-success mb-3" (click)="toggleForm()">Agregar</button>
+
+    <!-- Formulario para agregar un return -->
+    <div *ngIf="showForm" class="mb-4">
+        <form (ngSubmit)="isEditing ? updateReturn() : addReturn()">
+            <div class="mb-3">
+                <label for="orderId" class="form-label">Order ID</label>
+                <input type="number" id="orderId" class="form-control" [(ngModel)]="newReturn.order_id" name="order_id"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label for="productId" class="form-label">Product ID</label>
+                <input type="number" id="productId" class="form-control" [(ngModel)]="newReturn.product_id"
+                    name="product_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="returnDate" class="form-label">Return Date</label>
+                <input type="date" id="returnDate" class="form-control" [(ngModel)]="newReturn.return_date"
+                    name="return_date" required>
+            </div>
+            <div class="mb-3">
+                <label for="reason" class="form-label">Reason</label>
+                <input type="text" id="reason" class="form-control" [(ngModel)]="newReturn.reason" name="reason"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {{ isEditing ? 'Actualizar' : 'Guardar' }}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="toggleForm()">Cancelar</button>
+        </form>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+    <table class="table table-hover" *ngIf="listReturns.length > 0; else noData">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Order_id</th>
+                <th scope="col">Product_id</th>
+                <th scope="col">Return_date</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let returnItem of listReturns; trackBy: trackById">
+                @if(returnItem.user == user?.username){
+                <td>{{ returnItem.id }}</td>
+                <td>{{ returnItem.user }}</td>
+                <td>{{ returnItem.order_id }}</td>
+                <td>{{ returnItem.product_id }}</td>
+                <td>{{ returnItem.return_date }}</td>
+                <td>{{ returnItem.reason }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm"
+                        (click)="editReturn(returnItem)">Editar</button>
+                    <button type="button" class="btn btn-danger btn-sm"
+                        (click)="deleteReturn(returnItem.id)">Eliminar</button>
+                </td>
+
+                }
+
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noData>
+        <div class="alert alert-info">No hay datos disponibles.</div>
+    </ng-template>
+</div>
