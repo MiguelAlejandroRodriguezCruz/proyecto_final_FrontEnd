@@ -43,7 +43,7 @@ export class ReturnsComponent implements OnInit {
     const headers = new HttpHeaders()
       .set('Authorization', 'Basic ' + btoa(`${this.user.username}:${this.user.password}`));
 
-    this.http.get<any>('https://proyecto-final-backend-r3li.onrender.com/api/v1/return/listar', { headers })
+    this.http.get<any>('https://proyecto-final-backend-vw8r.onrender.com/api/v1/return/listar', { headers })
       .pipe(
         catchError((error) => {
           this.errorMessage = error.status === 401
@@ -93,7 +93,7 @@ export class ReturnsComponent implements OnInit {
       ...this.newReturn
     };
 
-    this.http.post('https://proyecto-final-backend-r3li.onrender.com/api/v1/return/crear', payload, { headers })
+    this.http.post('https://proyecto-final-backend-vw8r.onrender.com/api/v1/return/crear', payload, { headers })
       .pipe(
         catchError((error) => {
           if (error.status === 401 || error.status === 403) {
@@ -141,7 +141,7 @@ export class ReturnsComponent implements OnInit {
       ...this.newReturn
     };
 
-    this.http.put(`https://proyecto-final-backend-r3li.onrender.com/api/v1/return/actualizar/${this.editReturnId}`, payload, { headers })
+    this.http.put(`https://proyecto-final-backend-vw8r.onrender.com/api/v1/return/actualizar/${this.editReturnId}`, payload, { headers })
       .pipe(
         catchError((error) => {
           if (error.status === 401 || error.status === 403) {
@@ -173,7 +173,7 @@ export class ReturnsComponent implements OnInit {
     const headers = new HttpHeaders()
       .set('Authorization', 'Basic ' + btoa(`${this.user.username}:${this.user.password}`));
 
-    this.http.delete(`https://proyecto-final-backend-r3li.onrender.com/api/v1/return/eliminar/${id}`, { headers })
+    this.http.delete(`https://proyecto-final-backend-vw8r.onrender.com/api/v1/return/eliminar/${id}`, { headers })
       .pipe(
         catchError((error) => {
           if (error.status === 401 || error.status === 403) {
